@@ -18,7 +18,7 @@ int main()
 	j=1;
 	while(i<26){
 		for(k=0; str[k]!='\0'; k++){
-			str[k]=tolower(str[k]);
+		        str[k]=tolower(str[k]);
 			if(cont[i]==str[k]-'a'){
     		    pos[k]=j;
     		    j++;
@@ -28,8 +28,10 @@ int main()
 	}
 	printf("NUMERI CORRISPONDENTI:\n");
 	for(k=0; k<len-1; k++){
-		if(!isblank(str[k]))
-			printf("%u", pos[k]);	
+		if(!isblank(str[k]) && !isblank(str[k+1]) && k<len-2)
+			printf("%u-", pos[k]);
+		else if(!isblank(str[k]))
+			printf("%u", pos[k]);
 	}
 	printf("\n");
 	printf("TABELLA:\n\n");
@@ -47,7 +49,7 @@ int main()
 	for(k=0; k<len-1; k++){
 		if(!isblank(str[k]) && pos[k]<10)
 		    printf("  %u  ", pos[k]);
-	    else
+	    else if(!isblank(str[k]))
 	        printf("  %u ", pos[k]);
 	}
 }
