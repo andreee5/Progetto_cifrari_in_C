@@ -37,8 +37,9 @@ char * spazi(char * str)    // togliere eventuali spazi da una stringa
 }
 void lineette_tabella(unsigned len)           //visualizza riga di lineette tabella        
 {
-	for(unsigned k=0; k<len-1; k++){
-		textcolor(RED);
+	unsigned k;
+	for(k=0; k<len-1; k++){
+		textcolor(YELLOW);
 		printf("  -  ");
 	}
 }
@@ -46,17 +47,23 @@ int main()
 {
 	char str[100+1], str2[100+1];
 	unsigned t;
-	textcolor(CYAN);
+		textcolor(CYAN);
+		textbackground(WHITE);
 	printf("INSERISCI UNA SINGOLA PAROLA COME CHIAVE CRITTOGRAFICA:\n");
-	textcolor(LIGHTGRAY);
+		textcolor(LIGHTGRAY);
+		textbackground(0);
 	fgets(str, sizeof(str), stdin);
-	textcolor(CYAN);
+		textcolor(CYAN);
+		textbackground(WHITE);
 	printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
-	textcolor(WHITE);
+		textcolor(WHITE);
+		textbackground(0);
 	fgets(str2, sizeof(str2), stdin);
-	textcolor(CYAN);
+		textcolor(CYAN);
+		textbackground(WHITE);
 	printf("TIPOLOGIE DI ESERCIZI A DISPOSIZIONE(1-2):\n");
-	textcolor(WHITE);
+		textcolor(WHITE);
+		textbackground(0);
 	scanf("%u", &t);
 	spazi(str);              // eliminare spazi, segni, numeri, lettere tutte maiuscole
 	int len=strlen(str);
@@ -74,8 +81,10 @@ int main()
 		}
 		i++;
 	}
-	textcolor(CYAN);
+		textcolor(CYAN);
+		textbackground(WHITE);
 	printf("NUMERI CORRISPONDENTI:\n");       //visualizza numeri corrispondenti
+		textbackground(0);
 	for(k=0; k<len-1; k++){
 		if(k<len-2){
 			textcolor(LIGHTMAGENTA);
@@ -87,13 +96,15 @@ int main()
 		}
 	}
 	printf("\n");
-	textcolor(CYAN);
+		textcolor(CYAN);
+		textbackground(WHITE);
 	printf("TABELLA:\n\n");                 //visualizza lettere parola tabella
-	
+		textbackground(0);
 	for(k=0; str[k]!='\0'; k++)
 	    printf("  %c  ", str[k]);
 	printf("\n");
 	
+	spazi(str);
 	lineette_tabella(len);                 //visualizza riga di lineette tabella
 	printf("\n");
 	
@@ -123,16 +134,16 @@ int main()
 	printf("\n");
 	r=(len2-1)/(len-1);
 	if(t==1){
-		textcolor(CYAN);
 		printf("LETTERE CASUALI:\n");
+		textcolor(CYAN);
 		for(c=(len2-1)%(len-1); c<len-1; c++){
-			matrice[r][c]=(char) 65+rand()%26;
 			textcolor(RED);
-			printf("%c  ", matrice[r][c]);
+			matrice[r][c]=(char) 65+rand()%26;
+			printf("%c ", matrice[r][c]);
 		}
 	}
 	printf("\n\n");
-	textcolor(CYAN);
+		textcolor(CYAN);
 	printf("MESSAGGIO CRITTOGRAFATO: \n");
 	k=r;
 	j=1;
