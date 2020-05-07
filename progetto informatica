@@ -160,15 +160,20 @@ int main()
 	fgets(str2, sizeof(str2), stdin);
 		textcolor(WHITE);
 		textbackground(1);
-	printf("TIPOLOGIE DI ESERCIZI A DISPOSIZIONE(1-2):\n");
+	printf("SELEZIONA TIPOLOGIA DI ESERCIZIO(1-2):\n");
+	    textcolor(9);
+	    textbackground(0);
+	printf("1)CIFRARIO A TRASPOSIZIONE REGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga vengono riempite\n  con caratteri alfabetici casuali;\n");
+	printf("2)CIFRARIO A TRASPOSIZIONE IRREGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga rimangono vuote.\n");
 		textcolor(WHITE);
-		textbackground(0);
 	scanf("%u", &t);
 	
-	spazi(str);              // eliminare spazi, segni, numeri, lettere tutte maiuscole
-	
+	spazi(str);                            // eliminare spazi, segni, numeri, lettere tutte maiuscole
+	spazi(str2);
 	int len=strlen(str);
-	int cont[26], pos[100+1];    // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
+	int pos[100+1]; 
+	int len2=strlen(str2);
+	char matrice[100+1][100+1];            // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
 	assegamento_posizioni(str, pos);      // k corrisponde alla posizione del carattere nella stringa str.
 	
 	textcolor(WHITE);
@@ -193,10 +198,8 @@ int main()
 	lineette_tabella(len);                   //visualizza riga di lineette tabella
 	printf("\n");
 	
-	spazi(str2);
 	
-	int len2=strlen(str2);
-	char matrice[100+1][100+1];
+	
 	frase_tabella(str2, matrice, len);           //visualizza messaggio in fase di crittografia tabella
 	
 	if(t==1){
