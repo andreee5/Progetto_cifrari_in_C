@@ -35,11 +35,28 @@ char * spazi(char * str)    // togliere eventuali spazi da una stringa
 	str[l]='\0';
 	return str;
 }
+void assegamento_posizioni(char str[100+1], int pos[100+1])
+{
+	int cont[26], i, k, j;
+	for(i=0; i<26; i++)        
+	    cont[i]=i;           // alla variabile cont[i] assegno il valore della propria posizione, i, fino a 26
+	i=0;                     // ad ogni posizione dell'array cont assegno il valore della propria posizione, i, fino a 26 in modo tale che posso, in seguito, controllare l'array str
+	j=1;
+	while(i<26){
+		for(k=0; str[k]!='\0'; k++){
+			if(cont[i]==str[k]-'A'){    
+	       	    pos[k]=j;      // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
+	       	    j++;           // k corrisponde alla posizione del carattere nella stringa str.
+	        }
+		}
+		i++;
+	}
+} 
 void lineette_tabella(unsigned len)           //visualizza riga di lineette tabella        
 {
 	unsigned k;
+	textcolor(6);
 	for(k=0; k<len-1; k++){
-		textcolor(YELLOW);
 		printf("  -  ");
 	}
 }
@@ -47,67 +64,56 @@ int main()
 {
 	char str[100+1], str2[100+1];
 	unsigned t;
-		textcolor(CYAN);
-		textbackground(WHITE);
+		textcolor(WHITE);
+		textbackground(1);
 	printf("INSERISCI UNA SINGOLA PAROLA COME CHIAVE CRITTOGRAFICA:\n");
-		textcolor(LIGHTGRAY);
+		textcolor(CYAN);
 		textbackground(0);
 	fgets(str, sizeof(str), stdin);
-		textcolor(CYAN);
-		textbackground(WHITE);
-	printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
 		textcolor(WHITE);
+		textbackground(1);
+	printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
+		textcolor(RED);
 		textbackground(0);
 	fgets(str2, sizeof(str2), stdin);
-		textcolor(CYAN);
-		textbackground(WHITE);
+		textcolor(WHITE);
+		textbackground(1);
 	printf("TIPOLOGIE DI ESERCIZI A DISPOSIZIONE(1-2):\n");
 		textcolor(WHITE);
 		textbackground(0);
 	scanf("%u", &t);
 	spazi(str);              // eliminare spazi, segni, numeri, lettere tutte maiuscole
+	
 	int len=strlen(str);
 	int cont[26], i, k, pos[100+1], j;
-	for(i=0; i<26; i++)        
-	    cont[i]=i;           // alla variabile cont[i] assegno il valore della propria posizione, i
-	i=0;
-	j=1;
-	while(i<26){
-		for(k=0; str[k]!='\0'; k++){
-			if(cont[i]==str[k]-'A'){    
-	       		pos[k]=j;      // assegno alla varibile pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str,
-	       		j++;           // cioè nella parola chiave; k corrisponde alla posizione del carattere nella stringa str
-	       }
-		}
-		i++;
-	}
-		textcolor(CYAN);
-		textbackground(WHITE);
+	assegamento_posizioni(str, pos);      // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
+	                                     // k corrisponde alla posizione del carattere nella stringa str.
+		textcolor(WHITE);
+		textbackground(1);
 	printf("NUMERI CORRISPONDENTI:\n");       //visualizza numeri corrispondenti
 		textbackground(0);
+		textcolor(10);
 	for(k=0; k<len-1; k++){
 		if(k<len-2){
-			textcolor(LIGHTMAGENTA);
 			printf("%u-", pos[k]);
 		}
 		else{
-			textcolor(LIGHTMAGENTA);
 			printf("%u", pos[k]);
 		}
 	}
 	printf("\n");
-		textcolor(CYAN);
-		textbackground(WHITE);
+		textcolor(WHITE);
+		textbackground(1);
 	printf("TABELLA:\n\n");                 //visualizza lettere parola tabella
+		textcolor(CYAN);
 		textbackground(0);
-	for(k=0; str[k]!='\0'; k++)
-	    printf("  %c  ", str[k]);
+	for(k=0; k<len-1; k++)
+		printf("  %c  ", str[k]);
 	printf("\n");
-	
-	spazi(str);
 	lineette_tabella(len);                 //visualizza riga di lineette tabella
 	printf("\n");
-	
+
+		textcolor(10);
 	for(k=0; k<len-1; k++){                  //visualizza numeri corrispondenti tabella
 		if(pos[k]<10)
 	   		printf("  %u  ", pos[k]);
@@ -117,11 +123,12 @@ int main()
 	printf("\n");
 	lineette_tabella(len);                   //visualizza riga di lineette tabella
 	printf("\n");
+	textcolor(RED);
 	spazi(str2);
 	int len2=strlen(str2);
 	int r=0, c=0;
 	char matrice[100+1][100+1];
-	for(k=0; str2[k]!='\0'; k++){              //visualizza messaggio in fase di crittografia tabella
+	for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){             //visualizza messaggio in fase di crittografia tabella
 		matrice[r][c]=str2[k];
 		printf("  %c  ", matrice[r][c]);
 		c++;
@@ -131,26 +138,31 @@ int main()
 			r++;
 		}
 	}
-	printf("\n");
 	r=(len2-1)/(len-1);
 	if(t==1){
-		printf("LETTERE CASUALI:\n");
-		textcolor(CYAN);
-		for(c=(len2-1)%(len-1); c<len-1; c++){
-			textcolor(RED);
+		textcolor(6);
+		for(c=(len2-1)%(len-1); c<len-1 && c!=0; c++){
 			matrice[r][c]=(char) 65+rand()%26;
-			printf("%c ", matrice[r][c]);
+			printf("  %c  ", matrice[r][c]);
 		}
 	}
 	printf("\n\n");
-		textcolor(CYAN);
+		textcolor(WHITE);
+		textbackground(1);
 	printf("MESSAGGIO CRITTOGRAFATO: \n");
+		textbackground(0);
 	k=r;
 	j=1;
 	c=0;
 	while(j<len){
 		if(pos[c]==j){
 			for(r=0; r<=k; r++){
+				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1)){
+					textcolor(6);
+				}
+				else{
+					textcolor(RED);
+				}
 				printf("%c", matrice[r][c]);
 			}
 			j++;
