@@ -51,13 +51,95 @@ void assegamento_posizioni(char str[100+1], int pos[100+1])
 		}
 		i++;
 	}
-} 
+}
+void numeri_corrispondenti(int len, int pos[100+1])
+{
+	textbackground(0);
+	textcolor(10);
+	int k;
+	for(k=0; k<len-1; k++){
+		if(k<len-2){
+			printf("%u-", pos[k]);
+		}
+		else{
+			printf("%u", pos[k]);
+		}
+	}
+}
+void parola_tabella(char str[100+1], int len)
+{
+	textcolor(CYAN);
+	textbackground(0);
+	int k;
+	for(k=0; k<len-1; k++)
+		printf("  %c  ", str[k]);
+}
 void lineette_tabella(unsigned len)           //visualizza riga di lineette tabella        
 {
 	unsigned k;
 	textcolor(6);
 	for(k=0; k<len-1; k++){
 		printf("  -  ");
+	}
+}
+void numeri_corrispondenti_tabella(int len, int pos[100+1])
+{
+	textcolor(10);
+	int k;
+	for(k=0; k<len-1; k++){                  
+		if(pos[k]<10)
+	   		printf("  %u  ", pos[k]);
+	   	else
+	      	printf("  %u ", pos[k]);
+	}
+}
+void frase_tabella(char str2[100+1], char matrice[100+1][100+1], int len)
+{
+	textcolor(RED);
+	int k, r=0, c=0;
+	for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){             //visualizza messaggio in fase di crittografia tabella
+		matrice[r][c]=str2[k];
+		printf("  %c  ", matrice[r][c]);
+		c++;
+		if(c==len-1){
+			printf("\n");
+			c=0;
+			r++;
+		}
+	}
+}
+void lettere_casuali(char matrice[100+1][100+1], int len, int len2)
+{
+	textcolor(6);
+	int r, c;
+	r=(len2-1)/(len-1);
+	for(c=(len2-1)%(len-1); c<len-1 && c!=0; c++){
+		matrice[r][c]=(char) 65+rand()%26;
+		printf("  %c  ", matrice[r][c]);
+	}
+}
+void messaggio_crittografato(char matrice[100+1][100+1], int pos[100+1], int len, int len2)
+{
+	textbackground(0);	
+    int c=0, r=0, j=1, k;
+	k=(len2-1)/(len-1);
+	while(j<len){
+		if(pos[c]==j){
+			for(r=0; r<=k; r++){
+				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1)){
+					textcolor(6);
+				}
+				else{
+					textcolor(RED);
+				}
+				printf("%c", matrice[r][c]);
+			}
+			j++;
+			c=0;
+			printf("  ");
+		}
+		else
+			c++;
 	}
 }
 int main()
@@ -82,95 +164,50 @@ int main()
 		textcolor(WHITE);
 		textbackground(0);
 	scanf("%u", &t);
+	
 	spazi(str);              // eliminare spazi, segni, numeri, lettere tutte maiuscole
 	
 	int len=strlen(str);
-	int cont[26], i, k, pos[100+1], j;
-	assegamento_posizioni(str, pos);      // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
-	                                     // k corrisponde alla posizione del carattere nella stringa str.
-		textcolor(WHITE);
-		textbackground(1);
+	int cont[26], pos[100+1];    // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
+	assegamento_posizioni(str, pos);      // k corrisponde alla posizione del carattere nella stringa str.
+	
+	textcolor(WHITE);
+	textbackground(1);
 	printf("NUMERI CORRISPONDENTI:\n");       //visualizza numeri corrispondenti
-		textbackground(0);
-		textcolor(10);
-	for(k=0; k<len-1; k++){
-		if(k<len-2){
-			printf("%u-", pos[k]);
-		}
-		else{
-			printf("%u", pos[k]);
-		}
-	}
+    numeri_corrispondenti(len, pos);
 	printf("\n");
-		textcolor(WHITE);
-		textbackground(1);
-	printf("TABELLA:\n\n");                 //visualizza lettere parola tabella
-		textcolor(CYAN);
-		textbackground(0);
-	for(k=0; k<len-1; k++)
-		printf("  %c  ", str[k]);
+	
+	textcolor(WHITE);
+	textbackground(1);
+	printf("TABELLA:\n\n");
+	
+	parola_tabella(str, len);
+	printf("\n");                                   //visualizza lettere parola tabella
+	
+	lineette_tabella(len);                         //visualizza riga di lineette tabella
 	printf("\n");
-	lineette_tabella(len);                 //visualizza riga di lineette tabella
+    
+    numeri_corrispondenti_tabella(len, pos);       //visualizza numeri corrispondenti tabella
 	printf("\n");
-
-		textcolor(10);
-	for(k=0; k<len-1; k++){                  //visualizza numeri corrispondenti tabella
-		if(pos[k]<10)
-	   		printf("  %u  ", pos[k]);
-	   	else
-	      	printf("  %u ", pos[k]);
-	}
-	printf("\n");
+	
 	lineette_tabella(len);                   //visualizza riga di lineette tabella
 	printf("\n");
-	textcolor(RED);
+	
 	spazi(str2);
+	
 	int len2=strlen(str2);
-	int r=0, c=0;
 	char matrice[100+1][100+1];
-	for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){             //visualizza messaggio in fase di crittografia tabella
-		matrice[r][c]=str2[k];
-		printf("  %c  ", matrice[r][c]);
-		c++;
-		if(c==len-1){
-			printf("\n");
-			c=0;
-			r++;
-		}
-	}
-	r=(len2-1)/(len-1);
+	frase_tabella(str2, matrice, len);           //visualizza messaggio in fase di crittografia tabella
+	
 	if(t==1){
-		textcolor(6);
-		for(c=(len2-1)%(len-1); c<len-1 && c!=0; c++){
-			matrice[r][c]=(char) 65+rand()%26;
-			printf("  %c  ", matrice[r][c]);
-		}
-	}
+		lettere_casuali(matrice, len, len2);
+    }
 	printf("\n\n");
-		textcolor(WHITE);
-		textbackground(1);
+	
+	textcolor(WHITE);
+	textbackground(1);
 	printf("MESSAGGIO CRITTOGRAFATO: \n");
-		textbackground(0);
-	k=r;
-	j=1;
-	c=0;
-	while(j<len){
-		if(pos[c]==j){
-			for(r=0; r<=k; r++){
-				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1)){
-					textcolor(6);
-				}
-				else{
-					textcolor(RED);
-				}
-				printf("%c", matrice[r][c]);
-			}
-			j++;
-			c=0;
-			printf("  ");
-		}
-		else
-			c++;
-	}
+	messaggio_crittografato(matrice, pos, len, len2);
+	
 	textcolor(WHITE);
 }
