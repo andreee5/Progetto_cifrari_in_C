@@ -58,12 +58,10 @@ void numeri_corrispondenti(int len, int pos[100+1])
 	textcolor(10);
 	int k;
 	for(k=0; k<len-1; k++){
-		if(k<len-2){
+		if(k<len-2)
 			printf("%u-", pos[k]);
-		}
-		else{
+		else
 			printf("%u", pos[k]);
-		}
 	}
 }
 void parola_tabella(char str[100+1], int len)
@@ -78,9 +76,8 @@ void lineette_tabella(unsigned len)           //visualizza riga di lineette tabe
 {
 	unsigned k;
 	textcolor(YELLOW);
-	for(k=0; k<len-1; k++){
+	for(k=0; k<len-1; k++)
 		printf("  -  ");
-	}
 }
 void numeri_corrispondenti_tabella(int len, int pos[100+1])
 {
@@ -126,12 +123,10 @@ void messaggio_crittografato(char matrice[100+1][100+1], int pos[100+1], int len
 	while(j<len){
 		if(pos[c]==j){
 			for(r=0; r<=k; r++){
-				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1)){
+				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1))
 					textcolor(RED);
-				}
-				else{
+				else
 					textcolor(6);
-				}
 				printf("%c", matrice[r][c]);
 			}
 			j++;
@@ -157,7 +152,7 @@ int main()
 	    textcolor(WHITE);
 		textbackground(1);
 	    printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
-		textcolor(RED);
+		textcolor(BROWN);
 		textbackground(0);
 	    fgets(str2, sizeof(str2), stdin);
 	}
@@ -173,11 +168,10 @@ int main()
 		    textcolor(WHITE);
 		    textbackground(1);
 	    printf("SELEZIONA TIPOLOGIA DI ESERCIZIO(1-2):\n");
-	        textcolor(9);
+	        textcolor(WHITE);
 	        textbackground(0);
 	    printf("1)CIFRARIO A TRASPOSIZIONE REGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga vengono riempite\n  con caratteri alfabetici casuali;\n");
 	    printf("2)CIFRARIO A TRASPOSIZIONE IRREGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga rimangono vuote.\n");
-		    textcolor(WHITE);
 	    scanf("%d", &t);
 	
 	    spazi(str);                            // eliminare spazi, segni, numeri, lettere tutte maiuscole
@@ -212,9 +206,8 @@ int main()
 	
 	    frase_tabella(str2, matrice, len);           //visualizza messaggio in fase di crittografia tabella
 	
-	    if(t==1){
+	    if(t==1)
 		    lettere_casuali(matrice, len, len2);
-        }
 	    printf("\n\n");
 	
 	    textcolor(WHITE);
@@ -229,14 +222,13 @@ int main()
     	textcolor(WHITE);
 	    textbackground(1);
 	    printf("MESSAGGIO CRITTOGRAFATO: \n");
-	    textcolor(RED);
+	    textcolor(LIGHTGREEN);
 	    textbackground(0);
     	while(str2[k]!='\0'){
     		str2[k]=toupper(str2[k]);
     		do{
-    			if(isalpha(str2[k]) && str2[k]==str[j]){
+    			if(isalpha(str2[k]) && str2[k]==str[j])
     				printf("%c", cod[j]);
-				}
 				else if(isblank(str2[k]) || ispunct(str2[k]) || isdigit(str2[k])){
 					printf("%c", str2[k]);
 					k++;
@@ -253,17 +245,15 @@ int main()
 	    int k;
 	    for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){
 	    	str2[k]=toupper(str2[k]);
-	    	if(str2[k]-'A'<13 && !isblank(str2[k])){
+	    	if(str2[k]-'A'<13 && !isblank(str2[k]))
 	    		str2[k]=str2[k]+13;
-			}
-			else if(!isblank(str2[k])){
+			else if(!isblank(str2[k]))
 				str2[k]='A'+(12-('Z'-str2[k]));
-			}
 		}
 		textcolor(WHITE);
 	    textbackground(1);
 	    printf("MESSAGGIO CRITTOGRAFATO: \n");
-	    textcolor(RED);
+	    textcolor(LIGHTGREEN);
 	    textbackground(0);
 		printf("%s", str2);
 	}
