@@ -77,7 +77,7 @@ void parola_tabella(char str[100+1], int len)
 void lineette_tabella(unsigned len)           //visualizza riga di lineette tabella        
 {
 	unsigned k;
-	textcolor(6);
+	textcolor(YELLOW);
 	for(k=0; k<len-1; k++){
 		printf("  -  ");
 	}
@@ -95,7 +95,7 @@ void numeri_corrispondenti_tabella(int len, int pos[100+1])
 }
 void frase_tabella(char str2[100+1], char matrice[100+1][100+1], int len)
 {
-	textcolor(RED);
+	textcolor(6);
 	int k, r=0, c=0;
 	for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){             //visualizza messaggio in fase di crittografia tabella
 		matrice[r][c]=str2[k];
@@ -110,7 +110,7 @@ void frase_tabella(char str2[100+1], char matrice[100+1][100+1], int len)
 }
 void lettere_casuali(char matrice[100+1][100+1], int len, int len2)
 {
-	textcolor(6);
+	textcolor(RED);
 	int r, c;
 	r=(len2-1)/(len-1);
 	for(c=(len2-1)%(len-1); c<len-1 && c!=0; c++){
@@ -127,10 +127,10 @@ void messaggio_crittografato(char matrice[100+1][100+1], int pos[100+1], int len
 		if(pos[c]==j){
 			for(r=0; r<=k; r++){
 				if(r==(len2-1)/(len-1) && c>=(len2-1)%(len-1)){
-					textcolor(6);
+					textcolor(RED);
 				}
 				else{
-					textcolor(RED);
+					textcolor(6);
 				}
 				printf("%c", matrice[r][c]);
 			}
@@ -144,73 +144,134 @@ void messaggio_crittografato(char matrice[100+1][100+1], int pos[100+1], int len
 }
 int main()
 {
-	char str[100+1], str2[100+1];
-	unsigned t;
-		textcolor(WHITE);
+	int opzione;
+	printf("ESERCIZI A DISPOSIZIONE(1-2-3-4):\n");
+	printf("1)cifrario a trasposizione colonnare;\n");
+	printf("2)cifrario carbonaro;\n");
+	printf("3)cifrario ROT13;\n");
+	printf("4)uscire dal programma.\n");
+	scanf("%d",&opzione);
+	getchar();  //per "prepararsi" a leggere un altro carattere o metti fflush(stdin) per pulire il buffer , come vuoi
+	char str2[100+1];
+	if(opzione<4 && opzione>0){ 
+	    textcolor(WHITE);
 		textbackground(1);
-	printf("INSERISCI UNA SINGOLA PAROLA COME CHIAVE CRITTOGRAFICA:\n");
-		textcolor(CYAN);
-		textbackground(0);
-	fgets(str, sizeof(str), stdin);
-		textcolor(WHITE);
-		textbackground(1);
-	printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
+	    printf("INSERISCI IL MESSAGGIO DA CRITTOGRAFARE:\n");
 		textcolor(RED);
 		textbackground(0);
-	fgets(str2, sizeof(str2), stdin);
-		textcolor(WHITE);
-		textbackground(1);
-	printf("SELEZIONA TIPOLOGIA DI ESERCIZIO(1-2):\n");
-	    textcolor(9);
-	    textbackground(0);
-	printf("1)CIFRARIO A TRASPOSIZIONE REGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga vengono riempite\n  con caratteri alfabetici casuali;\n");
-	printf("2)CIFRARIO A TRASPOSIZIONE IRREGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga rimangono vuote.\n");
-		textcolor(WHITE);
-	scanf("%u", &t);
+	    fgets(str2, sizeof(str2), stdin);
+	}
+	if(opzione==1){
+		char str[100+1];
+	    int t;
+		    textcolor(WHITE);
+		    textbackground(1);
+	    printf("INSERISCI UNA SINGOLA PAROLA COME CHIAVE CRITTOGRAFICA:\n");
+		    textcolor(CYAN);
+		    textbackground(0);
+	    fgets(str, sizeof(str), stdin);
+		    textcolor(WHITE);
+		    textbackground(1);
+	    printf("SELEZIONA TIPOLOGIA DI ESERCIZIO(1-2):\n");
+	        textcolor(9);
+	        textbackground(0);
+	    printf("1)CIFRARIO A TRASPOSIZIONE REGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga vengono riempite\n  con caratteri alfabetici casuali;\n");
+	    printf("2)CIFRARIO A TRASPOSIZIONE IRREGOLARE: nella tabella, le posizioni vuote alla fine dell'ultima riga rimangono vuote.\n");
+		    textcolor(WHITE);
+	    scanf("%d", &t);
 	
-	spazi(str);                            // eliminare spazi, segni, numeri, lettere tutte maiuscole
-	spazi(str2);
-	int len=strlen(str);
-	int pos[100+1]; 
-	int len2=strlen(str2);
-	char matrice[100+1][100+1];            // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
-	assegamento_posizioni(str, pos);      // k corrisponde alla posizione del carattere nella stringa str.
+	    spazi(str);                            // eliminare spazi, segni, numeri, lettere tutte maiuscole
+	    spazi(str2);
+	    int len=strlen(str);
+	    int pos[100+1]; 
+	    int len2=strlen(str2);
+	    char matrice[100+1][100+1];            // assegno all'array pos, nella posizione k, un valore che corrisponde all'ordine alfabetico del carattere nella stringa str, cioè nella parola chiave;
+	    assegamento_posizioni(str, pos);      // k corrisponde alla posizione del carattere nella stringa str.
 	
-	textcolor(WHITE);
-	textbackground(1);
-	printf("NUMERI CORRISPONDENTI:\n");       //visualizza numeri corrispondenti
-    numeri_corrispondenti(len, pos);
-	printf("\n");
+	    textcolor(WHITE);
+	    textbackground(1);
+	    printf("NUMERI CORRISPONDENTI:\n");       //visualizza numeri corrispondenti
+        numeri_corrispondenti(len, pos);
+	    printf("\n");
 	
-	textcolor(WHITE);
-	textbackground(1);
-	printf("TABELLA:\n\n");
+	    textcolor(WHITE);
+	    textbackground(1);
+	    printf("TABELLA:\n\n");
 	
-	parola_tabella(str, len);
-	printf("\n");                                   //visualizza lettere parola tabella
+	    parola_tabella(str, len);
+	    printf("\n");                                   //visualizza lettere parola tabella
 	
-	lineette_tabella(len);                         //visualizza riga di lineette tabella
-	printf("\n");
+	    lineette_tabella(len);                         //visualizza riga di lineette tabella
+	    printf("\n");
     
-    numeri_corrispondenti_tabella(len, pos);       //visualizza numeri corrispondenti tabella
-	printf("\n");
+        numeri_corrispondenti_tabella(len, pos);       //visualizza numeri corrispondenti tabella
+    	printf("\n");
 	
-	lineette_tabella(len);                   //visualizza riga di lineette tabella
-	printf("\n");
+	    lineette_tabella(len);                   //visualizza riga di lineette tabella
+	    printf("\n");
 	
+	    frase_tabella(str2, matrice, len);           //visualizza messaggio in fase di crittografia tabella
 	
+	    if(t==1){
+		    lettere_casuali(matrice, len, len2);
+        }
+	    printf("\n\n");
 	
-	frase_tabella(str2, matrice, len);           //visualizza messaggio in fase di crittografia tabella
-	
-	if(t==1){
-		lettere_casuali(matrice, len, len2);
+	    textcolor(WHITE);
+	    textbackground(1);
+	    printf("MESSAGGIO CRITTOGRAFATO: \n");
+	    messaggio_crittografato(matrice, pos, len, len2);
     }
+    else if(opzione==2){
+    	char str[26+1]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','\0'};
+    	char cod[26+1]={'O','P','G','T','I','V','C','H','E','J','K','R','N','M','A','B','Q','L','Z','D','U','F','W','X','Y','S','\0'};
+    	int k=0, j=0;
+    	textcolor(WHITE);
+	    textbackground(1);
+	    printf("MESSAGGIO CRITTOGRAFATO: \n");
+	    textcolor(RED);
+	    textbackground(0);
+    	while(str2[k]!='\0'){
+    		str2[k]=toupper(str2[k]);
+    		do{
+    			if(isalpha(str2[k]) && str2[k]==str[j]){
+    				printf("%c", cod[j]);
+				}
+				else if(isblank(str2[k]) || ispunct(str2[k]) || isdigit(str2[k])){
+					printf("%c", str2[k]);
+					k++;
+					j=0;
+					str2[k]=toupper(str2[k]);
+				}
+			    j++;
+			}while(str2[k]!=str[j-1]);
+			j=0;
+			k++;
+		}
+	}
+	else if(opzione==3){
+	    int k;
+	    for(k=0; str2[k]!='\0' && str2[k]!='\n'; k++){
+	    	str2[k]=toupper(str2[k]);
+	    	if(str2[k]-'A'<13 && !isblank(str2[k])){
+	    		str2[k]=str2[k]+13;
+			}
+			else if(!isblank(str2[k])){
+				str2[k]='A'+(12-('Z'-str2[k]));
+			}
+		}
+		textcolor(WHITE);
+	    textbackground(1);
+	    printf("MESSAGGIO CRITTOGRAFATO: \n");
+	    textcolor(RED);
+	    textbackground(0);
+		printf("%s", str2);
+	}
 	printf("\n\n");
-	
 	textcolor(WHITE);
-	textbackground(1);
-	printf("MESSAGGIO CRITTOGRAFATO: \n");
-	messaggio_crittografato(matrice, pos, len, len2);
-	
+	textbackground(0);
+	printf("FATTO DA:\n");
+	printf("ANDREA SARTONI\n");
+	printf("FILIPPO LAZZARI\n");
 	textcolor(WHITE);
 }
