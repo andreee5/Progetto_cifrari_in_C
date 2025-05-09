@@ -24,7 +24,7 @@ All'avvio, l'utente può scegliere quale dei tre cifrari utilizzare:
 - Tipico esempio di cifratura per anagramma.
 
 #### 📸 Esempio
-![Cifrario a trasposizione colonnare](screenshot_cifrario_a_trasposizione.JPG)
+![Cifrario a trasposizione colonnare](screenshot_cifrario_a_trasposizione_colonnare.JPG)
 
 ---
 
