@@ -1,0 +1,20 @@
+# Escludi file compilati ed eseguibili
+*.exe
+*.obj
+*.o
+*.log
+*.tmp
+*.pdb
+*.ilk
+
+# Escludi file e impostazioni locali di Visual Studio
+*.user
+*.suo
+*.cache
+
+# Cartelle temporanee di compilazione
+Debug/
+Release/
+
+# Escludi file di VS Code (se usi anche quello)
+.vscode/
